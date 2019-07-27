@@ -19,6 +19,10 @@
   color: white;
 }
 
+.App-header.turn-on {
+  background-color: #fff;
+}
+
 .App-link {
   color: #61dafb;
 }
