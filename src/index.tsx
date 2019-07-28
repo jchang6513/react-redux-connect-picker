@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-const App = () => (
+export const App = () => (
   <Provider store={store}>
     <AppComp/>
   </Provider>

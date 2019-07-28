@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { StoreState } from './store';
 import { toggleSwitch } from './appAcrtions';
+import MaterialButton from './components/MaterialButton';
+import MaterialSwitch from './components/MaterialSwitch';
+import Lamp from './components/Lamp';
+import MaterialSlider from './components/MaterialSlider';
 
 const App = (props: AppProps) => {
   return (
     <div className="App">
-      <header className={`App-header ${props.switch && 'turn-on'}`}>
-        <div onClick={props.toggle}>
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
-      </header>
+      <div className="control-panel">
+        <MaterialSwitch />
+        <MaterialButton />
+        <MaterialSlider />
+      </div>
+      <Lamp/>
     </div>
   );
 }
@@ -31,7 +36,7 @@ const mapStateToProps = (state: StoreState): StateProps => ({
   switch: state.switch,
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: DispatchProps = {
   toggle: () => toggleSwitch(),
 };
 

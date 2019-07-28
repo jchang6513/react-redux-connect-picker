@@ -1,0 +1,23 @@
+.App {
+  background-color: #282c34;
+  text-align: center;
+  display: flex;
+  .control-panel {
+    flex: 1 0 0;
+    margin: 100px;
+    > * {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.material-button {
+  display: flex;
+  button {
+    margin-right: 20px;
+  }
+}
+
+.material-switch {
+  display: flex;
+}

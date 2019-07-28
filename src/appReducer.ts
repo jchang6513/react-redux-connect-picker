@@ -2,6 +2,7 @@ export enum AppActionType {
   Toggle = 'toggle',
   On = 'TurnOn',
   Off = 'TurnOff',
+  Tune = 'TuneLightLevel',
   Reset = 'Reset'
 }
 
@@ -9,12 +10,19 @@ export interface Action {
   type: AppActionType;
 }
 
+export interface LevelAction {
+  type: AppActionType;
+  level: number
+}
+
 export type AppReducerState = {
   switch: boolean;
+  lightLevel: number;
 };
 
 export const initState: AppReducerState = {
-  switch: false
+  switch: false,
+  lightLevel: 1,
 }
 
 const appReducer = (state: AppReducerState = initState, action: Action): AppReducerState => {
@@ -26,7 +34,12 @@ const appReducer = (state: AppReducerState = initState, action: Action): AppRedu
     case AppActionType.On:
       return { ...state, switch: true};
     case AppActionType.Off:
-        return { ...state, switch: false};
+      return { ...state, switch: false};
+    case AppActionType.Tune:
+      const level = (action as LevelAction).level;
+      return level === 0
+        ? { switch: false, lightLevel: level}
+        : { switch: true,  lightLevel: level}
     default:
       return state;
   }
