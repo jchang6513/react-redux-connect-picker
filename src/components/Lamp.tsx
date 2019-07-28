@@ -1,7 +1,6 @@
 import React from 'react';
 import '../lamp.scss';
-import { StoreState } from '../store';
-import { connect } from 'react-redux';
+import { wrapConnector } from '../connector';
 
 const Lamp = (props: LampProps) => {
   const style = {
@@ -23,13 +22,7 @@ type StateProps = {
 
 type LampProps = StateProps;
 
-const mapStateToProps = (state: StoreState): StateProps => ({
-  switch: state.switch,
-  lightLevel: state.lightLevel,
-});
-
-
-export default connect(
-  mapStateToProps,
-  {}
+export default wrapConnector(
+  ['switch', 'lightLevel'],
+  []
 )(Lamp);

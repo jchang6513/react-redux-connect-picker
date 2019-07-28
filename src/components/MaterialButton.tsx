@@ -5,7 +5,6 @@ import { wrapConnector } from '../connector';
 
 const MaterialButton = (props: MaterialButtonProps) => (
   <div className="material-button">
-    {console.log('MaterialButton', props)}
     <Button variant="contained" color={props.switch ? 'primary' : 'default'} onClick={props.turnOn}>
       On
     </Button>
@@ -26,4 +25,7 @@ type DispatchProps = {
 
 type MaterialButtonProps = StateProps & DispatchProps;
 
-export default wrapConnector()(MaterialButton);
+export default wrapConnector<StateProps, DispatchProps, {}>(
+  ['switch'],
+  ['turnOn', 'turnOff']
+)(MaterialButton);

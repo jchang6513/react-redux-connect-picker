@@ -1,31 +1,50 @@
-import { connect, MapStateToPropsParam, MapDispatchToPropsParam, ConnectedComponentClass } from "react-redux";
+import _ from 'lodash';
+import { connect, MapStateToPropsParam, MapDispatchToPropsParam } from "react-redux";
 import { StoreState } from "./store";
 import { ComponentType } from "react";
 import { tuneLightLevel, toggleSwitch, turnOnSwitch, turnOffSwitch } from "./appAcrtions";
 
-export const wrapConnector = () => {
+const defaultStatePicker = [
+  'switch',
+  'lightLevel',
+];
 
-  const mapStateToProps = (state: StoreState) => ({
-    switch: state.switch,
-    lightLevel: state.lightLevel,
-  });
+const defaultDispatchPicker = [
+  'tune',
+  'toggle',
+  'turnOn',
+  'turnOff'
+];
 
-  const mapDispatchToProps = {
+export const wrapConnector = <StateProps, DispatchProps, OwnProps>(
+  sPicker: string[] = defaultStatePicker,
+  dPicker: string[] = defaultDispatchPicker
+) => {
+
+  const mapStateToProps = (state: StoreState): StateProps => {
+    const stateProps = {
+      switch: state.switch,
+      lightLevel: state.lightLevel,
+    }
+    return _.pick(stateProps, sPicker) as StateProps
+  };
+
+  const mapDispatchToProps = _.pick({
     tune: (l: number) => tuneLightLevel(l),
     toggle: () => toggleSwitch(),
     turnOn: () => turnOnSwitch(),
     turnOff: () => turnOffSwitch(),
-  };
+  }, dPicker) as DispatchProps;
 
   return (Comp: ComponentType<never>) => (
-    connector(
+    connect<StateProps, DispatchProps, OwnProps, StoreState>(
       mapStateToProps,
       mapDispatchToProps
     )(Comp)
   )
 }
 
-const connector = <StateProps, DispatchProps, OwnProps>(
+export const connector = <StateProps, DispatchProps, OwnProps>(
   mapStoP: MapStateToPropsParam<StateProps, OwnProps, StoreState>,
   mapDtoP: MapDispatchToPropsParam<DispatchProps, OwnProps>
 ) => (
@@ -35,6 +54,4 @@ const connector = <StateProps, DispatchProps, OwnProps>(
       mapDtoP
     )(Comp)
   )
-)
-
-export default connector;
+);

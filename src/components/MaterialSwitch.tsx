@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Switch from '@material-ui/core/Switch';
-import { StoreState } from '../store';
-import { toggleSwitch } from '../appAcrtions';
 import { wrapConnector } from '../connector';
 
 const MaterialSwitch = (props: MaterialSwitchProps) => (
@@ -24,4 +22,7 @@ type DispatchProps = {
 
 type MaterialSwitchProps = StateProps & DispatchProps;
 
-export default wrapConnector()(MaterialSwitch);
+export default wrapConnector<StateProps, DispatchProps, {}>(
+  ['switch'],
+  ['toggle']
+)(MaterialSwitch);

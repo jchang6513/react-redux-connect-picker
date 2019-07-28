@@ -3,9 +3,8 @@ import React from 'react';
 import Slider from '@material-ui/core/Slider';
 import { wrapConnector } from '../connector';
 
-const MaterialSwitch = (props: MaterialSliderProps) => (
+const MaterialSlider = (props: MaterialSliderProps) => (
   <div className="material-slider">
-    {console.log('MaterialSwitch', props)}
     <Slider
       defaultValue={props.lightLevel}
       aria-labelledby="discrete-slider"
@@ -29,4 +28,7 @@ type DispatchProps = {
 
 type MaterialSliderProps = StateProps & DispatchProps;
 
-export default wrapConnector()(MaterialSwitch);
+export default wrapConnector<StateProps, DispatchProps, {}>(
+  ['lightLevel'],
+  ['tune']
+)(MaterialSlider);

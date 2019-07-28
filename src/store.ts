@@ -1,4 +1,4 @@
-import { createStore, Store } from "redux";
+import { createStore } from "redux";
 import appReducer, { AppReducerState } from './appReducer';
 
 export type StoreState = AppReducerState;

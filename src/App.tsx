@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
 import './App.scss';
 import { StoreState } from './store';
 import { toggleSwitch } from './appAcrtions';
