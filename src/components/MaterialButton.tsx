@@ -1,12 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
-import { turnOnSwitch, turnOffSwitch } from '../appAcrtions';
-import { StoreState } from '../store';
+import { wrapConnector } from '../connector';
 
 const MaterialButton = (props: MaterialButtonProps) => (
   <div className="material-button">
+    {console.log('MaterialButton', props)}
     <Button variant="contained" color={props.switch ? 'primary' : 'default'} onClick={props.turnOn}>
       On
     </Button>
@@ -27,16 +26,4 @@ type DispatchProps = {
 
 type MaterialButtonProps = StateProps & DispatchProps;
 
-const mapStateToProps = (state: StoreState): StateProps => ({
-  switch: state.switch,
-});
-
-const mapDispatchToProps: DispatchProps = {
-  turnOn: () => turnOnSwitch(),
-  turnOff: () => turnOffSwitch(),
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MaterialButton);
+export default wrapConnector()(MaterialButton);

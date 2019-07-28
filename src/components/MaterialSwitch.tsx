@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Switch from '@material-ui/core/Switch';
 import { StoreState } from '../store';
 import { toggleSwitch } from '../appAcrtions';
+import { wrapConnector } from '../connector';
 
 const MaterialSwitch = (props: MaterialSwitchProps) => (
   <div className="material-switch">
@@ -24,15 +24,4 @@ type DispatchProps = {
 
 type MaterialSwitchProps = StateProps & DispatchProps;
 
-const mapStateToProps = (state: StoreState): StateProps => ({
-  switch: state.switch,
-});
-
-const mapDispatchToProps: DispatchProps = {
-  toggle: () => toggleSwitch(),
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MaterialSwitch);
+export default wrapConnector()(MaterialSwitch);
